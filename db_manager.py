@@ -1,5 +1,4 @@
 import psycopg2
-from settings import *
 
 
 class DBManager:
@@ -12,7 +11,7 @@ class DBManager:
                                           port=port
                                           )
         self.__cursor = self.__connect.cursor()
-        print('Connect to base [OK]')
+        print('Connection to the database [OK]')
 
     def create_tables(self):
         self.__cursor.execute("CREATE TABLE IF NOT EXISTS users (id serial PRIMARY KEY, "
@@ -22,7 +21,7 @@ class DBManager:
                               "user_id BIGINT NOT NULL, "
                               "last_word TEXT)")
         self.__connect.commit()
-        print('table created')
+        print('Tables have been created or already exist [OK]')
 
     def check_user(self, user_id):
         self.__cursor.execute(f"SELECT user_id FROM users WHERE user_id = %s", (user_id,))
